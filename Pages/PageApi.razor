@@ -15,6 +15,28 @@
 
 <h1>Lista de usuarios</h1>
 
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Telefo</th>
+        <th>Detale</th>
+    </tr>
+    
+    @foreach (User user in users)
+    {
+        <tr>
+            <td>@user.name</td>
+            <td>@user.email</td>
+            <td>@user.phone</td>
+            <td><a href="/pageapi/@user.id/details">Detalle</a></td>
+        </tr>
+    }
+    
+
+</table>
+
+<!--
 <div class="container">
     @foreach (User user in users)
     {
@@ -24,6 +46,8 @@
         </div>
     }
 </div>
+-->
+
 <br>
 <br>
 <br>
@@ -37,7 +61,7 @@
     private List<User> users = new List<User>();
 
     protected override async Task OnInitializedAsync(){
-        for (int i = 1; i < 10; i++)
+        for (int i = 1; i < 11; i++)
         {
             users.Add(await client.GetUser(i.ToString()));
         }
