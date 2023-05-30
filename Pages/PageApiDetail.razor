@@ -1,0 +1,47 @@
+@page "/detail/{id}"
+@using Model;
+@using Util;
+@inject UserClient client;
+
+<PageTitle>Detalle</PageTitle>
+<br>
+<a href="/">inicio</a>
+<a href="/formulario">Formulario</a>
+<a href="/pageapi">ListaAPI</a>
+<br>
+<br>
+
+
+<h1>Detalle del usuario</h1>
+<p> <b>Nombre:</b>  @user.name</p>
+<p> <b>Username:</b>   @user.username</p>
+<p> <b>Correo:</b> @user.email</p>
+<p> <b>website:</b> @user.website</p>
+<p> <b>Telefono:</b> @user.phone</p>
+<p> <b>Dirección:</b></p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Street: </b> @user.address.street </p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Suite: </b> @user.address.suite </p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>City: </b> @user.address.city </p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Zipcode: </b> @user.address.zipcode </p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Geo: </b> Lat: @user.address.geo.lat, Lng: @user.address.geo.lng </p>
+<p> <b>Compañia:</b> </p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Nombre:</b>@user.company.name</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>CatchPhrase:</b>@user.company.catchPhrase</p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>BS:</b>@user.company.bs</p>
+
+<a href="/pageapi">volver</a>
+
+<br>
+<br>
+<br>
+
+
+@code{
+    [Parameter]
+    public string id {get; set;}
+
+    private User user = new User();
+    protected override async Task OnInitializedAsync(){
+        user = await client.GetUser(id);
+    }
+}

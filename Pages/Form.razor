@@ -1,0 +1,67 @@
+@page "/formulario"
+
+<PageTitle>Contact</PageTitle>
+<br>
+<a href="/">inicio</a>
+<a href="/formulario">Formulario</a>
+<a href="/pageapi">ListaAPI</a>
+<br>
+<br>
+
+<form @onsubmit="sendData" style="margin: 3rem;">
+  <div class="form-group">
+    <label>Correo</label>
+    <input @bind="Correo" type="email" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Nombre</label>
+    <input @bind="Nombre" type="text" class="form-control">
+  </div>
+   <div class="form-group">
+    <label>Telefono</label>
+    <input @bind="Telefono" type="text" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Mensaje</label>
+    <input @bind="Mensaje" type="text" class="form-control">
+  </div>
+  <button class="btn btn-info">Enviar</button>
+</form>
+<hr>
+<ul>
+    @foreach(User user in users) {
+        <li>@user.Nombre - @user.Correo - @user.Telefono - @user.Mensaje</li>
+        <h2>Hola soy  @user.Nombre , quiero contactarme con ustedes por lo siguiente @user.Mensaje </h2>
+        <h2>Pueden comunicarse conmigo en: Correo electronico @user.Correo, telefono @user.Telefono</h2>
+    }
+</ul>
+
+@code {
+    private string? Nombre {set;get;}
+    private string? Correo {set;get;}
+    private string? Telefono {set;get;}
+    private string? Mensaje {set;get;}
+    private List<User> users = new List<User>();
+
+    private void sendData(){
+        if(this.Nombre != "" && this.Correo != "" && this.Telefono != "" && this.Mensaje != ""){
+            this.users.Add(new User(this.Nombre, this.Correo, this.Telefono, this.Mensaje));
+        }
+    }
+
+    public class User {
+        public string Nombre;
+        public string Correo;
+         public string Telefono;
+         public string Mensaje;
+
+        public User(string N, string C, string T, string M){
+            this.Nombre = N;
+            this.Correo = C;
+            this.Telefono= T;
+            this.Mensaje= M;
+        } 
+    }
+}
+
+
